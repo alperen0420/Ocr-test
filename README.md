@@ -14,7 +14,11 @@ Bunlar başlangıç adayları. GT, görev uyumu veya değerlendirme protokolü a
 
 2. Mevcut çek/senet verileri ve VL kullanımı
 
-Mevcut çek/senet verilerinin GT'si bulunmuyor ve manuel kontrol yapılmayacak. Qwen 8B VL modelini otomatik referans oluşturmak ve belirsiz OCR çıktılarını doğrulamak amacıyla kullanabiliriz.
+Mevcut çek/senet verileri yalnızca Table ve Text Spotting görevlerinde kullanılacak. Seal, Formula ve Chart değerlendirmelerine kesinlikle dahil edilmeyecek.
+
+Table ve Text Spotting görevleri hem gerçek GT içeren benchmark'larla hem de mevcut çek/senet verileriyle ayrı ayrı değerlendirilecek.
+
+Çek/senet verilerinin GT'si bulunmuyor ve manuel kontrol yapılmayacak. Qwen 8B VL modelini otomatik referans oluşturmak ve belirsiz OCR çıktılarını doğrulamak amacıyla kullanabiliriz.
 
 Değerlendirilecek yaklaşım:
 
@@ -26,7 +30,7 @@ Değerlendirilecek yaklaşım:
 
 VL çıktısını kesin GT kabul etme. Gerçek GT ile silver/pseudo-GT sonuçlarını ayrı raporla. Qwen'in kendi hatalarının OCR performansını yanıltmasını mümkün olduğunca engelle.
 
-Çek/senet tarafında öncelik Table ve Text Spotting. Belgelerin gerçek yapısına uygun metrikler seç; güvenilir koordinat GT'si olmadan kesin detection skoru hesaplama.
+Belgelerin gerçek yapısına uygun metrikler seç; güvenilir koordinat GT'si olmadan kesin detection skoru hesaplama.
 
 3. Örnek sayısı ve metrikler
 
@@ -41,8 +45,8 @@ Seal| End-to-end spotting F1, CER
 Formula| ExpRate, CDM, CER
 Chart| Sayısal veri doğruluğu, metin doğruluğu
 Table| TEDS, hücre/yapı doğruluğu
-Spotting| Detection F1, IoU, CER
-Çek/Senet| VL referansına göre CER, coverage, alan eşleşmesi
+Text Spotting| Detection F1, IoU, CER
+Çek/Senet (yalnızca Table ve Spotting)| VL referansına göre CER, coverage, alan eşleşmesi ve uygulanabilir yapısal metrikler
 
 Metrikleri benchmark protokollerine göre kesinleştir. Format farklılıklarının yapay hatalara neden olmaması için uygun normalizasyon ve eşleştirme yöntemleri belirle. Mümkünse güven aralıkları ve hata türlerini de raporla.
 
